@@ -1,15 +1,24 @@
-# Full-Stack Web Developer Nanodegree
+# Item Catalog
 
-## Projects:
-- **p1**: Movie Trailer Website - **ready for review**
-- **p2**: Tournament Results - **ready for review**
-- **p3**: Item Catalog - **ready for review**
-- **p4**: Conference Organization App - **ready for review... I think**
-- **p5**: Linux-based Server Configuration
+by Allan Reyes, in fulfillment of Udacity's [Full-Stack Web Developer Nanodegree](https://www.udacity.com/course/nd004)
 
-## Courses:
-- Programming Foundations with Python
-- Intro to Relational Databases
-- Full Stack Foundations
-- Developing Scalable Apps with Python
-- Linux Basics for Web Developers
+### About
+
+This application provides a list of items (TBD) within a variety of categories (TBD) and provides a user registration and authentication system.  Registered users (anyone with a GitHub account) will have the ability to post, edit and delete their own items.
+
+### How to run
+
+This simple web application uses GitHub for authorization and authentication.  To simulate security best practices, the API keys are not in the main application file or hard-coded.  However, to facilitate grading, a shell script, `export_keys.sh`, is available to export API keys (current as of the time of submission) to server environment variables.
+
+To spin this website up:
+
+1. Download or clone the `p3/vagrant` directory.
+2. Initialize the Vagrant vm via `vagrant up`, which should set up on `localhost:5000`.
+3. Connect to the virtual machine: `vagrant ssh`.
+4. (Optional) Obtain your own GitHub API keys by [registering a new application](https://github.com/settings/applications).  Ensure you add `localhost:5000/github-callback` as the authorization callback URL.
+5. (Optional) Inside the virtual machine, `export` your own API keys, `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`.
+6. Navigate to the catalog directory: `cd /vagrant/catalog`
+7. Run the provided key export shell script: `source export_keys.sh`.
+8. Start the server: `python application.py`.
+9. Navigate to it in your browser of choice at `localhost:5000`.  The first-time run of the server will initialize the database with fixture data.
+10. Let me know of any bugs :P

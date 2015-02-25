@@ -1,5 +1,3 @@
-courses
-*.docx
+venv
 *.pyc
 *.db
-*.vagrant
