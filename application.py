@@ -29,7 +29,7 @@ Base.metadata.bind = engine
 DBSession = scoped_session(sessionmaker(bind=engine))
 db_session = DBSession()
 
-repo_uri = 'https://github.com/allanbreyes/udacity-full-stack/tree/master/p3'
+repo_uri = 'https://github.com/allanbreyes/mooc-catalog'
 base_uri = '/catalog/'
 api_uri = base_uri + 'api/'
 
