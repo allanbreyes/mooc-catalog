@@ -40,7 +40,7 @@ class Course(Base):
     course_url = Column(String(255))
     thumbnail_url = Column(String(255))
     course_number = Column(String(20))
-    description = Column(String(1000))
+    description = Column(String(2000))
     start_date = Column(Date)
     featured = Column(Boolean, default=False)
     provider_id = Column(Integer, ForeignKey('providers.id'))
@@ -63,5 +63,6 @@ class Course(Base):
             'provider_id': self.provider_id
         }
 
-engine = create_engine('sqlite:///catalog.db')
-Base.metadata.create_all(engine)
+if __name__ == '__main__':
+    engine = create_engine(os.environ['DATABASE_URL'])
+    Base.metadata.create_all(engine)

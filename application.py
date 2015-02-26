@@ -24,7 +24,7 @@ from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-if os.environ['APP_SETTINGS'] == "config.DevelopmentConfig":
+if True: #os.environ['APP_SETTINGS'] == "config.DevelopmentConfig":
     engine = create_engine(os.environ['DATABASE_URL'])
     Base.metadata.bind = engine
 
@@ -32,6 +32,7 @@ if os.environ['APP_SETTINGS'] == "config.DevelopmentConfig":
     db_session = DBSession()
 
 else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
     db_session = SQLAlchemy(app)
 
 repo_uri = 'https://github.com/allanbreyes/mooc-catalog'
@@ -174,7 +175,7 @@ def seed_database(fixture_filename='fixtures.json'):
 def index():
     """ main index page """
     # call seed function
-    seed_database()
+    # seed_database()
     providers, _ = base_query()
     featured_courses = db_session.query(Course).filter_by(featured=True).order_by(Course.start_date)
     return render_template('index_courses.html',
@@ -324,4 +325,5 @@ def delete_course(course_id):
                            logged_in=authenticated)
 
 if __name__ == '__main__':
+    app.debug = True;
     app.run(host='0.0.0.0', port=5000)
