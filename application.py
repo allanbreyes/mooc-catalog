@@ -153,16 +153,16 @@ def seed_database(fixture_filename='fixtures.json'):
             provider = Provider(name=p['name'], homepage_url=p['homepage_url'])
             db_session.add(provider)
         seed_courses = fixtures['courses']
-        for c in seed_courses:
-            course = Course(name=c['name'],
-                            course_url=c['course_url'],
-                            thumbnail_url=c['thumbnail_url'],
-                            course_number=c['course_number'],
-                            description=c['description'],
-                            start_date=datetime.strptime(c['start_date'], '%Y-%m-%d'),
-                            featured=c['featured'],
-                            provider_id=c['provider_id'])
-            db_session.add(course)
+        # for c in seed_courses:
+        #     course = Course(name=c['name'],
+        #                     course_url=c['course_url'],
+        #                     thumbnail_url=c['thumbnail_url'],
+        #                     course_number=c['course_number'],
+        #                     description=c['description'],
+        #                     start_date=datetime.strptime(c['start_date'], '%Y-%m-%d'),
+        #                     featured=c['featured'],
+        #                     provider_id=c['provider_id'])
+        #     db_session.add(course)
         try:
             db_session.commit()
             flash('Database seeded with fixture data.', 'warning')
@@ -175,7 +175,7 @@ def seed_database(fixture_filename='fixtures.json'):
 def index():
     """ main index page """
     # call seed function
-    # seed_database()
+    seed_database()
     providers, _ = base_query()
     featured_courses = db_session.query(Course).filter_by(featured=True).order_by(Course.start_date)
     return render_template('index_courses.html',
