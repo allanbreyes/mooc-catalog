@@ -2,9 +2,10 @@ import os
 from flask import Flask, flash, g, jsonify, redirect, render_template,\
                   request, session, url_for
 from flask.ext.github import GitHub
+from flask.ext.sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.secret_key = "developmentkeyforthewin"
+app.config.from_object(os.environ['APP_SETTINGS'])
 
 # set-up github oauth - https://github-flask.readthedocs.org/en/latest/
 if os.environ.has_key('GITHUB_CLIENT_ID') and\
@@ -23,11 +24,15 @@ from datetime import datetime
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-engine = create_engine('sqlite:///catalog.db')
-Base.metadata.bind = engine
+if os.environ['APP_SETTINGS'] == "config.DevelopmentConfig":
+    engine = create_engine(os.environ['DATABASE_URL'])
+    Base.metadata.bind = engine
 
-DBSession = scoped_session(sessionmaker(bind=engine))
-db_session = DBSession()
+    DBSession = scoped_session(sessionmaker(bind=engine))
+    db_session = DBSession()
+
+else:
+    db_session = SQLAlchemy(app)
 
 repo_uri = 'https://github.com/allanbreyes/mooc-catalog'
 base_uri = '/catalog/'
@@ -319,5 +324,4 @@ def delete_course(course_id):
                            logged_in=authenticated)
 
 if __name__ == '__main__':
-    app.debug = True
     app.run(host='0.0.0.0', port=5000)
