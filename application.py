@@ -53,7 +53,7 @@ def login():
 def logout():
     """ logout route/routine """
     session.pop('user_id', None)
-    session.pop('access_token', None)
+    session.pop('user_token', None)
     flash('You\'ve been successfully logged out... mortal.', 'success')
     return redirect(url_for('index'))
 
