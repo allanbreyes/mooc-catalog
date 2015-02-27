@@ -152,7 +152,9 @@ def seed_database(fixture_filename='fixtures.json'):
         for p in seed_providers:
             provider = Provider(name=p['name'], homepage_url=p['homepage_url'])
             db_session.add(provider)
-        seed_courses = fixtures['courses']
+        # TODO: implement postgresql compatibility with seeded courses (reverse id
+        #       lookup on course provider)
+        # seed_courses = fixtures['courses']
         # for c in seed_courses:
         #     course = Course(name=c['name'],
         #                     course_url=c['course_url'],
